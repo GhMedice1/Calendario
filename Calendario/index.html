@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Filmes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .calendar-container {
+            text-align: center;
+            width: 65%; 
+            max-width: 9000px;
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .calendar {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .month {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .weekdays {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        .weekday {
+            flex: 1;
+            text-align: center;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            gap: 5px;
+        }
+
+        .day {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .day img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        #modal-background {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(5px); 
+            z-index: 1; 
+        }
+
+        #sinopse-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 2; 
+            text-align: center;
+        }
+
+        #sinopse-text {
+            font-size: 18px;
+        }
+        .day img:hover::after {
+            content: attr(title); 
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container"> 
+        <h1>Calendário de Dias</h1>
+        <div class="calendar">
+            <div class="month">Setembro / Outubro 2023</div>
+            <div class="weekdays">
+                <div class="weekday">Sex</div>
+                <div class="weekday">Sáb</div>
+                <div class="weekday">Dom</div>
+                <div class="weekday">Seg</div>
+                <div class="weekday">Ter</div>
+                <div class="weekday">Qua</div>
+                <div class="weekday">Qui</div>
+            </div>
+            <div class="days">
+                <div class="day">
+                    <p>7</p>
+                    <img src="01.webp" alt="(500) Dias com Ela (2009)" title="(500) Dias com Ela (2009)" onclick="exibirSinopse('Tom Hansen (Joseph Gordon-Levitt) está em uma reunião com seu chefe, Vance (Clark Gregg), quando ele apresenta sua nova assistente, Summer Finn (Zooey Deschanel). Tom logo fica impressionado com sua beleza, o que faz com que tente, nas duas semanas seguintes, realizar algum tipo de contato. Sua grande chance surge quando seu melhor amigo o convida a ir em um karaokê, onde os colegas de trabalho costumam ir. Lá Tom encontra Summer. Eles também cantam e conversam sobre o amor, dando início a um relacionamento.')">
+                </div>
+
+                <div class="day">
+                    <p>8</p>
+                    <img src="02.jpg" alt="Para Todos os Garotos que já Amei (2018)" title="Para Todos os Garotos que já Amei (2018)" onclick="exibirSinopse('Baseado no romance de Jenny Han, Para Todos os Garotos que Já Amei segue as aventuras amorosas de Lara Jean (Lana Condor). No ensino médio, Lara tem um hábito de escrever cartas para todos os garotos que já gostou de alguma forma, de modo que ela possa liberar o amor não correspondido ou que nunca foi falado para a pessoa. Todas as cartas que já escreveu são guardadas em uma caixa. Um dia sua irmã mais nova acha as cartas e decide mandar para todos os destinatários, afim de ajudar a irmã a ser correspondida por um deles ou apenas receber uma mensagem. Na manhã seguinte, Lara é confrontada por Peter Kavinsky (Noah Centineo), que recebeu uma de suas cartas, mas se não fosse só ele, Josh e Lucas também vão falar com ela. Em um momento de desespero ela beija Peter para despistar um dos garotos. Ciente que suas cartas foram mandadas, Lara entra em pânico, mas Peter percebe que sua ex-namorada começou a ficar com ciúmes dele. Então ele decide fazer um pacto com Lara para que eles forjem um namoro para que Peter volte com sua ex. Mas será que o amor dos dois vai florescer em meio de mentirinhas?')">
+                </div>
+
+                <div class="day">
+                    <p>9</p>
+                    <img src="03.webp" alt="Titanic (1997)" title="Titanic (1997)" onclick="exibirSinopse('Jack Dawson (Leonardo DiCaprio) é um jovem aventureiro que, na mesa de jogo, ganha uma passagem para a primeira viagem do transatlântico Titanic. Trata-se de um luxuoso e imponente navio, anunciado na época como inafundável, que parte para os Estados Unidos. Nele está também Rose DeWitt Bukater (Kate Winslet), a jovem noiva de Caledon Hockley (Billy Zane). Rose está descontente com sua vida, já que sente-se sufocada pelos costumes da elite e não ama Caledon. Entretanto, ela precisa se casar com ele para manter o bom nome da família, que está falida. Um dia, desesperada, Rose ameaça se atirar do Titanic, mas Jack consegue demovê-la da ideia. Pelo ato ele é convidado a jantar na primeira classe, onde começa a se tornar mais próximo de Rose. Logo eles se apaixonam, despertando a fúria de Caledon. A situação fica ainda mais complicada quando o Titanic se choca com um iceberg, provocando algo que ninguém imaginava ser possível: o naufrágio do navio.')">
+                </div>
+
+                <div class="day">
+                    <p>10</p>
+                    <img src="04.webp" alt="La La Land: Cantando Estações (2017)" title="La La Land: Cantando Estações (2017)" onclick="exibirSinopse('Ao chegar em Los Angeles o pianista de jazz Sebastian (Ryan Gosling) conhece a atriz iniciante Mia (Emma Stone) e os dois se apaixonam perdidamente. Em busca de oportunidades para suas carreiras na competitiva cidade, os jovens tentam fazer o relacionamento amoroso dar certo enquanto perseguem fama e sucesso.')">
+                </div>
+
+                <div class="day">
+                    <p>11</p>
+                    <img src="05.jpg" alt="10 Coisas Que Odeio em Você (1999)" title="10 Coisas Que Odeio em Você (1999)" onclick="exibirSinopse('A situação está tensa na casa dos Stratford. Bianca (Larisa Oleynik) não vê a hora de arranjar um namorado, mas seu pai (Larry Miller) não permite que ela saia com garotos. Após muita insistência, o pai toma uma resolução: Bianca pode namorar, desde que sua irmã, Katharina (Julia Stiles), namore também. Só que Katharina é uma verdadeira megera, que não tem amigos na escola nem em lugar algum. Para resolver a questão, Cameron (Joseph Gordon-Levitt), apaixonado por Bianca, resolve contratar o misterioso Patrick Verona (Heath Ledger) para seduzir a futura cunhada.')">
+                </div>
+
+                <div class="day">
+                    <p>12</p>
+                    <img src="06.jpg" alt="A Teoria de Tudo (2014)" title="A Teoria de Tudo (2014)" onclick="exibirSinopse('Baseado na biografia de Stephen Hawking, o filme mostra como o jovem astrofísico (Eddie Redmayne) fez descobertas importantes sobre o tempo, além de retratar o seu romance com a aluna de Cambridge Jane Wide (Felicity Jones) e a descoberta de uma doença motora degenerativa quando tinha apenas 21 anos.')">
+                </div>
+
+                <div class="day">
+                    <p>13</p>
+                    <img src="07.jpg" alt="O Livro dos Prazeres (2022)" title="O Livro dos Prazeres (2022)" onclick="exibirSinopse('Em O Livro dos Prazeres, baseado na obra de Clarice Lispector, Lóri (Simone Spoladore) é uma professora com uma vida monótona tanto profissionalmente quanto romanticamente. Tudo muda quando ela conhece Ulisses (Javier Drolas), um provocador professor argentino. Com ele, Lóri vivencia novas experiências, trocas e aprende, enfim, o que é amar.')">
+                </div>
+
+                <div class="day">
+                    <p>14</p>
+                    <img src="08.webp" alt="After - Depois do Desencontro (2021)" title="After - Depois do Desencontro (2021)" onclick="exibirSinopse('Em After 3 - Depois do Desencontro, embora a história de amor entre Tessa Young (Josephine Langford) e Hardin Scott (Hero Fiennes-Tiffin) tenha passado por muitas complicações, desta vez o problema é mais complexo do que nunca. Agora que Tessa tomou uma das decisões mais importantes de sua vida, tudo mudou completamente. Os segredos que vêm à tona sobre suas famílias colocam em risco seu relacionamento e seu futuro juntos. Embora a jovem saiba que Hardin a ama, os dois estão cercados de ciúme, ódio e perdão. Será que o amor entre os dois será o suficiente para manter seu relacionamento?')">
+                </div>
+
+                <div class="day">
+                    <p>15</p>
+                    <img src="09.jpg" alt="Ponte para Terabítia (2007)" title="Ponte para Terabítia (2007)" onclick="exibirSinopse('Jess Aarons (Josh Hutcherson) sente-se um estranho na escola e até mesmo em sua família. Durante todo o verão ele treinou para ser o garoto mais rápido da escola, mas seus planos são ameaçados por Leslie Burke (AnnaSophia Robb), que vence uma corrida que deveria ser apenas para garotos. Logo Jess e Leslie tornam-se grandes amigos e, juntos, criam o reino secreto de Terabítia, um lugar mágico onde apenas é possível chegar se pendurando em uma velha corda, que fica sobre um riacho perto de suas casas. Lá eles lutam contra Dark Master (Matt Gibbons) e suas criaturas, além de conspirar contra as brincadeiras de mau gosto que são feitas na escola.')">
+                </div>
+
+                <div class="day">
+                    <p>16</p>
+                    <img src="10.webp" alt="Barbie (2023)" title="Barbie (2023)" onclick="exibirSinopse('No fabuloso live-action da boneca mais famosa do mundo, acompanhamos o dia a dia em Barbieland - o mundo mágico das Barbies, onde todas as versões da boneca vivem em completa harmonia e suas únicas preocupações são encontrar as melhores roupas para passear com as amigas e curtir intermináveis festas. Porém, uma das bonecas (interpretada por Margot Robbie) começa a perceber que talvez sua vida não seja tão perfeita assim, questionando-se sobre o sentido de sua existência e alarmando suas companheiras. Logo, sua vida no mundo cor-de-rosa começa a mudar e, eventualmente, ela sai de Barbieland. Forçada a viver no mundo real, Barbie precisa lutar com as dificuldades de não ser mais apenas uma boneca - pelo menos ela está acompanhada de seu fiel e amado Ken (Ryan Gosling), que parece cada vez mais fascinado pela vida no novo mundo. Enquanto isso, Barbie tem dificuldades para se ajustar, e precisa enfrentar vários momentos nada coloridos até descobrir que a verdadeira beleza está no interior de cada um.')">
+                </div>
+
+                <div class="day">
+                    <p>17</p>
+                    <img src="11.jpg" alt="Cidades de Papel (2015)" title="Cidades de Papel (2015)" onclick="exibirSinopse('A história é centrada em Quentin Jacobsen (Nat Wolff) e sua enigmática vizinha e colega de escola Margo Roth Spiegelman (Cara Delevingne). Ele nutre uma paixão platônica por ela. E não pensa duas vezes quando a menina invade seu quarto propondo que ele participe de um engenhoso plano de vingança. Mas, depois da noite de aventura, Margo desaparece – não sem deixar pistas sobre o seu paradeiro.')">
+                </div>
+
+                <div class="day">
+                    <p>18</p>
+                    <img src="12.jpg" alt="Jogos Vorazes: A Esperança – Parte 1 (2014)" title="Jogos Vorazes: A Esperança – Parte 1 (2014)" onclick="exibirSinopse('Após ser resgatada do Massacre Quaternário pela resistência ao governo tirânico do presidente Snow (Donald Sutherland), Katniss Everdeen (Jennifer Lawrence) está abalada. Temerosa e sem confiança, ela agora vive no Distrito 13 ao lado da mãe (Paula Malcomson) e da irmã, Prim (Willow Shields). A presidente Alma Coin (Julianne Moore) e Plutarch Heavensbee (Philip Seymour Hoffman) querem que Katniss assuma o papel do tordo, o símbolo que a resistência precisa para mobilizar a população. Após uma certa relutância, Katniss aceita a proposta desde que a resistência se comprometa a resgatar Peeta Mellark (Josh Hutcherson) e os demais Vitoriosos, mantidos prisioneiros pela Capital')">
+                </div>
+
+                <div class="day">
+                    <p>19</p>
+                    <img src="13.jpg" alt="Jogos Vorazes: A Esperança – Parte 2 (2015)" title="Jogos Vorazes: A Esperança – Parte 2 (2015)" onclick="exibirSinopse('Em Jogos Vorazes: A Esperança - O Final, ainda se recuperando do choque de ver Peeta (Josh Hutcherson) contra si, Katniss Everdeen (Jennifer Lawrence) é enviada ao Distrito 2 pela presidente Coin (Julianne Moore). Lá ela ajuda a convencer os moradores locais a se rebelarem contra a Capital. Com todos os distritos unidos, tem início o ataque decisivo contra o presidente Snow (Donald Sutherland). Só que Katniss tem seus próprios planos para o combate e, para levá-los adiante, precisa da ajuda de Gale (Liam Hemsworth), Finnick (Sam Claflin), Cressida (Natalie Dormer), Pollux (Elder Henson) e do próprio Peeta, enviado para compôr sua equipe.')">
+                </div>
+
+                <div class="day">
+                    <p>20</p>
+                    <img src="14.jpg" alt="Interestelar (2014)" title="Interestelar (2014)" onclick="exibirSinopse('Após ver a Terra consumindo boa parte de suas reservas naturais, um grupo de astronautas recebe a missão de verificar possíveis planetas para receberem a população mundial, possibilitando a continuação da espécie. Cooper (Matthew McConaughey) é chamado para liderar o grupo e aceita a missão sabendo que pode nunca mais ver os filhos. Ao lado de Brand (Anne Hathaway), Jenkins (Marlon Sanders) e Doyle (Wes Bentley), ele seguirá em busca de uma nova casa. Com o passar dos anos, sua filha Murph (Mackenzie Foy e Jessica Chastain) investirá numa própria jornada para também tentar salvar a população do planeta.')">
+                </div>
+
+                <div class="day">
+                    <p>21</p>
+                    <img src="15.jpg" alt="Perdido em Marte (2015)" title="Perdido em Marte (2015)" onclick="exibirSinopse('O astronauta Mark Watney (Matt Damon) é enviado a uma missão em Marte. Após uma severa tempestade ele é dado como morto, abandonado pelos colegas e acorda sozinho no misterioso planeta com escassos suprimentos, sem saber como reencontrar os companheiros ou retornar à Terra.')">
+                </div>
+
+                <div class="day">
+                    <p>22</p>
+                    <img src="16.jpg" alt="A Chegada (2016)" title="A Chegada (2016)" onclick="exibirSinopse('Quando seres interplanetários deixam marcas na Terra, a Dra. Louise Banks (Amy Adams), uma linguista especialista no assunto, é procurada por militares para traduzir os sinais e desvendar se os alienígenas representam uma ameaça ou não. No entanto, a resposta para todas as perguntas e mistérios pode ameaçar a vida de Louise e a existência de toda a humanidade.')">
+                </div>
+
+                <div class="day">
+                    <p>23</p>
+                    <img src="17.jpg" alt="Nasce Uma Estrela (2018)" title="Nasce Uma Estrela (2018)" onclick="exibirSinopse('Em Nasce Uma Estrela, Jackson Maine (Bradley Cooper) é um cantor no auge da fama. Um dia, após deixar uma apresentação, ele para em um bar para beber algo. É quando conhece Ally (Lady Gaga), uma insegura cantora que ganha a vida trabalhando em um restaurante. Jackson se encanta pela mulher e seu talento, decidindo acolhê-la debaixo de suas asas. Ao mesmo tempo em que Ally ascende ao estrelato, Jackson vive uma crise pessoal e profissional devido aos problemas com o álcool.')">
+                </div>
+
+                <div class="day">
+                    <p>24</p>
+                    <img src="18.jpg" alt="Meu Namorado é um Zumbi (2013)" title="Meu Namorado é um Zumbi (2013)" onclick="exibirSinopse('Em um cenário pós-apocalíptico,  o zumbi R (Nicholas Hoult) passa por uma crise existencial e criando laços de amizade com uma humana chamada Julie (Teresa Palmer), uma de suas vítimas por quem acaba se interessando amorosamente. O problema é que este relacionamento acaba causando uma reação em cadeia em outros mortos-vivos, mas o general Grigio (John Malkovich) não está interessado neste tipo de mudança e sim no total extermínio da ameaça zumbi.')">
+                </div>
+
+                <div class="day">
+                    <p>25</p>
+                    <img src="19.jpg" alt="Zumbilândia (2010)" title="Zumbilândia (2010)" onclick="exibirSinopse('A população mundial foi dizimada devido a um vírus, variante do mal da vaca louca, que faz com que as pessoas se transformem em zumbis. Poucos são os humanos não infectados, entre eles Columbus (Jesse Eisenberg). Ele é um estudante da Univeridade do Texas, que deseja voltar para sua cidade natal na esperança de encontrar seus pais ainda vivos. Cheio de fobias, o maior medo de Columbus não são os zumbis, mas os palhaços. No caminho ele encontra Tallahassee (Woody Harrelson), que está indo para a Flórida com o objetivo de aniquilar o maior número possível de zumbis. Columbus pega uma carona com ele. Ao parar em uma mercearia, a dupla enfrenta três zumbis e encontra duas garotas, Wichita (Emma Stone) e sua irmã caçula Little Rock (Abigail Breslin). Só que Little Rock aparenta ter sido mordida por um zumbi, o que divide o grupo sobre o que fazer.')">
+                </div>
+
+                <div class="day">
+                    <p>26</p>
+                    <img src="20.jpg" alt="O Pior Vizinho do Mundo (2022)" title="O Pior Vizinho do Mundo" onclick="exibirSinopse('O Pior Vizinho do Mundo é o remake do filme sueco de 2015 Um Homem Chamado Ove. Nele acompanhamos um homem chato, aposentado e rabugento, Otto (Tom Hanks), de 59 anos. Vários anos antes, foi deposto como presidente da associação de condomínios, mas não se importava com a deposição e, por isso, continua vigiando o bairro com mão de ferro. Quando a grávida Parvaneh e sua família se mudam para a casa geminada em frente e as cartas da nova vizinha acidentalmente vão parar na caixa de correio de Otto, uma amizade inesperada acaba se formando e a vida dos dois mudam drasticamente. Uma comédia dramática sobre amizade inesperada, amor e a importância de se cercar das ferramentas adequadas.')">
+                </div>
+
+                <div class="day">
+                    <p>27</p>
+                    <img src="21.jpg" alt="Elementos (2023)" title="Elementos (2023)" onclick="exibirSinopse('Elementos é um filme de animação que se passa em uma sociedade extraordinária chamada Cidade Elemento, na qual os quatro elementos da natureza - ar, terra, fogo e ar - vivem em completa harmonia. Na história, somos apresentados à Faísca (fogo, dublada por Leah Lewis), uma mulher espirituosa na faixa dos vinte anos, com um grande senso de humor e apaixonada pela família, mas que tem um temperamento um pouco quente; Gota (água, dublado por Mamoudou Athie) é um jovem empático, observador e extrovertido, que não tem medo de demonstrar suas emoções - na verdade, é até um pouco difícil controlá-las; Turrão (terra, dublado por Mason Wertheimer) é um garoto muito inteligente da terra que mora na Vila do Fogo, e está sempre perto de Faísca; e Névoa (ar, dublada por Wendi McLendon-Covey), que tem uma personalidade fofa e rosa, está sempre atenta às tendências da moda e é fã dos Windbreakers, um time de Air Ball.')">
+                </div>
+
+                <div class="day">
+                    <p>28</p>
+                    <img src="22.webp" alt="You (2018)" title="You (2018)" onclick="exibirSinopse('Você conta a história de Guinevere Beck (Elizabeth Lail), uma aspirante a escritora, que vê sua vida mudar completamente ao entrar em uma livraria no East Village, onde conhece o charmoso gerente, Joe Goldberg (Penn Badgley). Assim que a conhece, Joe tem certeza de que ela é a garota dos seus sonhos, e fará de tudo para conquistá-la — usando a internet e as redes sociais para descobrir tudo sobre Beck. O que poderia ser visto como paixão se transforma em uma obsessão perigosa, uma vez que Joe não vai medir esforços para tirar de seu caminho tudo e todos que podem ameaçar seus objetivos. Joe manipula cada momento de seu relacionamento com Beck para que a mesma esteja sempre ao seu lado e se convence que os dois são almas gêmeas destinadas a ficar juntos. Ele fará de tudo para os dois ficarem juntos, incluindo assassinato.')">
+                </div>
+
+                <div class="day">
+                    <p>29</p>
+                    <img src="23.jpg" alt="O Exorcismo do Papa (2023)" title="O Exorcismo do Papa" onclick="exibirSinopse('Inspirado nos arquivos reais do Padre Gabriele Amorth, Chefe Exorcista do Vaticano. O padre realizou mais de 100.000 exorcismos em sua vida e faleceu em 2016 aos 91 anos. Amorth escreveu duas memórias – An Exorcist Tells His Story e An Exorcist: More Stories – e detalhou suas experiências lutando contra Satanás e demônios que agarraram e possuíram as pessoas com seu mal. O filme, sendo o retrato do personagem da vida real, acompanha Amorth (Russell Crowe) enquanto ele investiga a terrível possessão de um menino e acaba descobrindo uma conspiração secular que o Vaticano tentou desesperadamente proteger e manter no esquecimento.')">
+                </div>
+
+                <div class="day">
+                    <p>30</p>
+                    <img src="24.webp" alt="Pânico 6 (2023)" title="Pânico 6 (2023)" onclick="exibirSinopse('Sam (Melissa Barrera), Tara (Jenna Ortega), Mindy (Jasmin Savoy Brown) e Chad (Mason Gooding) estão fartos. Depois de sobreviver ao massacre final de Ghostface em Woodsboro, os quatro se mudam sem cerimônia para Nova York. Lá, os dois irmãos querem começar uma nova vida, por assim dizer, e deixar a pequena cidade e suas experiências traumáticas para trás. Mas o maldito assassino com uma máscara de fantasma e uma lâmina afiada não pode ser abalado tão facilmente, porque de repente ele também aparece na Big Apple. Na rua, no metrô, no supermercado – aparentemente em todos os lugares ele aproveita a agitação da cidade grande para desaparecer na multidão com a mesma rapidez com que apareceu antes. E embora Sam, Tara, Mindy e Chad já tenham conhecido o assassino, desta vez eles não podem confiar em sua experiência. Porque quem está por trás da máscara tem novos truques na manga.')">
+                </div>
+
+                <div class="day">
+                    <p>01</p>
+                    <img src="25.webp" alt="Evil Dead Rise (2023)" title="Evil Dead Rise (2023)" onclick="exibirSinopse('A Morte do Demônio: A Ascensão é um filme de terror slasher que faz parte da clássica franquia A Morte do Demônio, que teve o primeiro título lançado em 1981. No filme, Beth (Lily Sullivan) vai até Los Angeles para visitar sua irmã mais velha, Ellie (Alyssa Sutherland), que mora com os três filhos em um pequeno apartamento. Com uma relação distante, essa seria a oportunidade para uma reaproximação entre as irmãs. Porém, o reencontro toma um rumo macabro quando elas encontram um livro antigo que dá vida a demônios possuidores de carne. Agora, para sobreviverem, serão forçadas a enfrentar uma versão aterrorizante da família.')">
+                </div>
+
+                <div class="day">
+                    <p>02</p>
+                    <img src="26.jpg" alt="DeadPool (2016)" title="DeadPool (2016)" onclick="exibirSinopse('Ex-militar e mercenário, Wade Wilson (Ryan Reynolds) é diagnosticado com câncer em estado terminal, porém encontra uma possibilidade de cura em uma sinistra experiência científica. Recuperado, com poderes e um incomum senso de humor, ele torna-se Deadpool e busca vingança contra o homem que destruiu sua vida.')">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fundo desfocado (modal de fundo) -->
+    <div id="modal-background"></div>
+
+    <!-- Modal de sinopse -->
+    <div id="sinopse-modal">
+        <h2>Sinopse do Filme</h2>
+        <p id="sinopse-text"></p>
+        <button onclick="fecharSinopse()">Fechar</button>
+    </div>
+
+    <script>
+        function exibirSinopse(sinopse) {
+            const sinopseElement = document.getElementById('sinopse-text');
+            sinopseElement.textContent = sinopse;
+            const modalBackground = document.getElementById('modal-background');
+            const sinopseModal = document.getElementById('sinopse-modal');
+
+            // Defina o alinhamento do texto como "justify"
+            sinopseElement.style.textAlign = 'justify';
+
+            modalBackground.style.display = 'block';
+            sinopseModal.style.display = 'block';
+        }
+
+        function fecharSinopse() {
+            const modalBackground = document.getElementById('modal-background');
+            const sinopseModal = document.getElementById('sinopse-modal');
+
+            modalBackground.style.display = 'none';
+            sinopseModal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
